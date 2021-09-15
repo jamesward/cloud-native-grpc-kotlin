@@ -15,10 +15,26 @@ Run the Chat client:
 ./gradlew :chat-client:run --console=plain --quiet
 ```
 
-Containerize:
+Create & run the Chat client native image:
 ```
-gradle :ef-server:jib --image=gcr.io/$PROJECT_ID/ef-server
-gradle :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
+./gradlew :chat-client:nativeImage
+chat-client/build/graal/chat
+```
+
+Containerize & Run Locally:
+```
+./gradlew :ef-server:jibDockerBuild
+docker run -it --network=host ef-server
+
+./gradlew :chat-server:jibDockerBuild
+docker run -it --network=host chat-server
+```
+
+
+Containerize (Remote Storage):
+```
+./gradlew :ef-server:jib --image=gcr.io/$PROJECT_ID/ef-server
+./gradlew :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
 ```
 
 ## TODO

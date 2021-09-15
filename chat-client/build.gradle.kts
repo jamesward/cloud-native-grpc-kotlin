@@ -18,17 +18,16 @@ tasks.named<JavaExec>("run") {
 }
 
 // todo: add graalvm-config-create task
-// JAVA_HOME=~/.gradle/caches/com.palantir.graal/20.2.0/8/graalvm-ce-java8-20.2.0 JAVA_OPTS=-agentlib:native-image-agent=config-output-dir=native-client/src/graal native-client/build/install/native-client/bin/native-client
+// ./gradlew :chat-client:install
+// JAVA_HOME=~/.gradle/caches/com.palantir.graal/21.2.0/8/graalvm-ce-java8-21.2.0 JAVA_OPTS=-agentlib:native-image-agent=config-output-dir=chat-client/src/graal chat-client/build/install/chat-client/bin/chat-client
 
 graal {
-    graalVersion("20.2.0")
+    graalVersion("21.2.0")
     mainClass(application.mainClass.get())
-    outputName("hello-world")
+    outputName("chat")
     option("--verbose")
     option("--no-server")
     option("--no-fallback")
     option("-H:+ReportExceptionStackTraces")
-    option("-H:+TraceClassInitialization")
-    option("-H:+PrintClassInitialization")
     option("-H:ReflectionConfigurationFiles=src/graal/reflect-config.json")
 }
