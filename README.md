@@ -15,6 +15,11 @@ Run the Chat client:
 ./gradlew :chat-client:run --console=plain --quiet
 ```
 
+Containerize:
+```
+gradle :ef-server:jib --image=gcr.io/$PROJECT_ID/ef-server
+gradle :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
+```
 
 ## TODO
 

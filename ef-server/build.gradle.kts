@@ -1,6 +1,7 @@
 plugins {
     application
     kotlin("jvm")
+    id("com.google.cloud.tools.jib")
 }
 
 dependencies {
