@@ -41,5 +41,4 @@ Containerize (Remote Storage):
 
 - `chat-server` configurable client connection info
 - `chat-client` configurable client connection info
-- `chat-client` GraalVM Native Image
 - Kubernetes Deployment Descriptors
