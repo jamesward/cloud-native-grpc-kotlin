@@ -30,7 +30,6 @@ docker run -it --network=host ef-server
 docker run -it --network=host chat-server
 ```
 
-
 Containerize (Remote Storage):
 ```
 ./gradlew :ef-server:jib --image=gcr.io/$PROJECT_ID/ef-server
@@ -39,6 +38,7 @@ Containerize (Remote Storage):
 
 ## TODO
 
-- `chat-server` configurable client connection info
-- `chat-client` configurable client connection info
+- `chat-server` configurable client connection info (env var or arg)
+- `chat-client` configurable client connection info (env var or arg)
 - Kubernetes Deployment Descriptors
+  - make sure we use http2
