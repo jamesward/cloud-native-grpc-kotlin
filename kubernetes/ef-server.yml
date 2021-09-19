@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ef-server
+  labels:
+    app: ef-server
+    visualize: "true"
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ef-server
+  template:
+    metadata:
+      labels:
+        app: ef-server
+        version: v1
+        visualize: "true"
+    spec:
+      containers:
+        - name: ef-server
+          image: gcr.io/none-219021/ef-server:latest
+          imagePullPolicy: Always
+          ports:
+            - name: grpc
+              containerPort: 9092
