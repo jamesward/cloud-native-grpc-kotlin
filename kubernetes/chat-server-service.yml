@@ -7,8 +7,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 9092
+    - port: 50052
       name: grpc
-      targetPort: 9092
+      targetPort: 50052
   selector:
     app: chat-server

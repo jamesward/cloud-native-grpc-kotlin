@@ -24,4 +24,4 @@ spec:
           imagePullPolicy: Always
           ports:
             - name: grpc
-              containerPort: 9092
+              containerPort: 50051

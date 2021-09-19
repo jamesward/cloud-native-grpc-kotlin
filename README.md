@@ -30,11 +30,28 @@ docker run -it -p 50051:50051 ef-server
 docker run -it -p 50052:50052 chat-server
 ```
 
+I couldn't get the client to connect to the above docker containers.  Instead I was able to get docker compose to work.
+```
+docker-compose up -d
+```
+
 Docker Cleanup
 
 ```
 docker system prune -f
 docker volume prune
+```
+
+In GCP console
+
+```
+export PROJECT_ID=project id in the browser address bar
+```
+
+Find GKE connect string in GUI (screen shot)
+
+```
+gcloud container clusters get-credentials cngk --region us-central1 --project none-219021
 ```
 
 Containerize (Remote Storage):
@@ -43,6 +60,39 @@ Containerize (Remote Storage):
 ./gradlew :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
 ```
 
+
+
+Run in GKE:
+
+```
+cd kubernetes/
+kubectl create -f ef-server.yml
+kubectl create -f ef-server-service.yml
+kubectl create -f chat-server.yml
+kubectl create -f chat-server-service.yml
+kubectl get pods
+kubectl logs -f chat-server-7d96b44fdd-pd28f
+```
+
+Localhost Tab:
+
+```
+export CHAT_SERVER_SERVER_TARGET=35.225.147.88:50052
+```
+
+```
+./gradlew :chat-client:run --console=plain --quiet
+```
+
+
+Clean-up
+
+```
+kubectl delete -f ef-server.yml
+kubectl delete -f ef-server-service.yml
+kubectl delete -f chat-server.yml
+kubectl delete -f chat-server-service.yml
+```
 ## TODO
 
 - `chat-server` configurable client connection info (env var or arg)
