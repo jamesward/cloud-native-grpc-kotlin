@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-server
+  labels:
+    app: chat-server
+    visualize: "true"
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-server
+  template:
+    metadata:
+      labels:
+        app: chat-server
+        version: v1
+        visualize: "true"
+    spec:
+      containers:
+        - name: chat-server
+          image: gcr.io/none-219021/chat-server:latest
+          imagePullPolicy: Always
+          ports:
+            - name: grpc
+              containerPort: 9092
