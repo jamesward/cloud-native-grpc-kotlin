@@ -60,8 +60,6 @@ Containerize (Remote Storage):
 ./gradlew :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
 ```
 
-
-
 Run in GKE:
 
 ```
@@ -70,17 +68,15 @@ kubectl create -f ef-server.yml
 kubectl create -f ef-server-service.yml
 kubectl create -f chat-server.yml
 kubectl create -f chat-server-service.yml
+kubectl get svc
 kubectl get pods
 kubectl logs -f chat-server-7d96b44fdd-pd28f
 ```
 
-Localhost Tab:
+Back on in your local environment:
 
 ```
-export CHAT_SERVER_SERVER_TARGET=35.225.147.88:50052
-```
-
-```
+export CHAT_SERVER_SERVER_TARGET=34.66.212.0:50052
 ./gradlew :chat-client:run --console=plain --quiet
 ```
 
@@ -93,6 +89,7 @@ kubectl delete -f ef-server-service.yml
 kubectl delete -f chat-server.yml
 kubectl delete -f chat-server-service.yml
 ```
+
 ## TODO
 
 - `chat-server` configurable client connection info (env var or arg)
