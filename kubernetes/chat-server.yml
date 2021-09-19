@@ -25,3 +25,6 @@ spec:
           ports:
             - name: grpc
               containerPort: 9092
+          env:
+            - name: EF_SERVER_TARGET
+              value: "ef-server-service:50051"

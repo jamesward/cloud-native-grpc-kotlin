@@ -24,10 +24,17 @@ chat-client/build/graal/chat
 Containerize & Run Locally:
 ```
 ./gradlew :ef-server:jibDockerBuild
-docker run -it --network=host ef-server
+docker run -it -p 50051:50051 ef-server
 
 ./gradlew :chat-server:jibDockerBuild
-docker run -it --network=host chat-server
+docker run -it -p 50052:50052 chat-server
+```
+
+Docker Cleanup
+
+```
+docker system prune -f
+docker volume prune
 ```
 
 Containerize (Remote Storage):
