@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ef-server-service
+  labels:
+    app: ef-server-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 50051
+      name: grpc
+      targetPort: 50051
+  selector:
+    app: ef-server

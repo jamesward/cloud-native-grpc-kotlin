@@ -1,0 +1,27 @@
+
+# TO RUN: docker-compose up -d
+
+version: '3'
+
+networks:
+  sandbox:
+    driver: bridge
+
+services:
+  ef-server:
+    image: ef-server
+    container_name: ef-server
+    hostname: ef-server
+    ports:
+      - "50051:50051"
+
+  chat-server:
+    image: chat-server
+    hostname: chat-server
+    container_name: chat-server
+    ports:
+      - "50052:50052"
+    environment:
+      EF_SERVER_TARGET: "ef-server:50051"
+    depends_on:
+      - ef-server
