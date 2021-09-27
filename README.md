@@ -1,5 +1,11 @@
 # Cloud Native gRPC Kotlin
 
+Run Chat Client against Server Testcontainers:
+```
+./gradlew :chat-client:runc --console=plain --quiet
+```
+
+
 Start the Explicit Filter server:
 ```
 ./gradlew :ef-server:run
@@ -21,6 +27,7 @@ Create & run the Chat client native image:
 chat-client/build/graal/chat
 ```
 
+
 Containerize & Run Locally:
 ```
 ./gradlew :ef-server:jibDockerBuild
@@ -30,17 +37,6 @@ docker run -it -p 50051:50051 ef-server
 docker run -it -p 50052:50052 chat-server
 ```
 
-I couldn't get the client to connect to the above docker containers.  Instead I was able to get docker compose to work.
-```
-docker-compose up -d
-```
-
-Docker Cleanup
-
-```
-docker system prune -f
-docker volume prune
-```
 
 In GCP console
 

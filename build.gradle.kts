@@ -1,6 +1,6 @@
 plugins {
     id("com.google.protobuf") version "0.8.17" apply false
-    kotlin("jvm") version "1.5.30" apply false
+    kotlin("jvm") version "1.5.31" apply false
     id("com.google.cloud.tools.jib") version "3.1.4" apply false
 }
 

@@ -7,6 +7,8 @@ plugins {
 dependencies {
     implementation(project(":stub-lite"))
     runtimeOnly("io.grpc:grpc-okhttp:${rootProject.ext["grpcVersion"]}")
+    testImplementation("org.testcontainers:testcontainers:1.16.0")
+    testRuntimeOnly("org.slf4j:slf4j-simple:1.7.32")
 }
 
 application {
@@ -15,6 +17,16 @@ application {
 
 tasks.named<JavaExec>("run") {
     standardInput = System.`in`
+}
+
+tasks.create<JavaExec>("runc") {
+    dependsOn(":ef-server:jibDockerBuild")
+    dependsOn(":chat-server:jibDockerBuild")
+    outputs.upToDateWhen { false }
+
+    standardInput = System.`in`
+    mainClass.set("cngk.ChatClientDevKt")
+    classpath += sourceSets["test"].runtimeClasspath
 }
 
 // todo: add graalvm-config-create task

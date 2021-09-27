@@ -4,17 +4,13 @@ import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-
-fun main(): Unit = runBlocking {
-
-    val CHAT_SERVER_SERVER_TARGET = System.getenv("CHAT_SERVER_SERVER_TARGET")?.toString() ?: "localhost:50052"
-
-    println("Connecting to " + CHAT_SERVER_SERVER_TARGET)
+suspend fun connect(target: String) = run {
+    println("Connecting to $target")
 
     val channel = ManagedChannelBuilder
-            .forTarget(CHAT_SERVER_SERVER_TARGET)
-            .usePlaintext()
-            .build()
+        .forTarget(target)
+        .usePlaintext()
+        .build()
 
     val client = ChatGrpcKt.ChatCoroutineStub(channel)
 
@@ -32,5 +28,9 @@ fun main(): Unit = runBlocking {
         println("< " + it.body)
         print("> ")
     }
+}
 
+fun main(): Unit = runBlocking {
+    val target = System.getenv("CHAT_SERVER_TARGET")?.toString() ?: "localhost:50052"
+    connect(target)
 }

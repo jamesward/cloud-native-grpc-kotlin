@@ -32,9 +32,10 @@ class Chat(val explicitFilter: ExplicitFilterGrpcKt.ExplicitFilterCoroutineStub)
 
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 50052
-    val EF_SERVER_TARGET = System.getenv("EF_SERVER_TARGET")?.toString() ?: "localhost:50051"
+    val efTarget = System.getenv("EF_SERVER_TARGET")?.toString() ?: "localhost:50051"
+    println(efTarget)
 
-    val channel = ManagedChannelBuilder.forTarget(EF_SERVER_TARGET).usePlaintext().build()
+    val channel = ManagedChannelBuilder.forTarget(efTarget).usePlaintext().build()
 
     val client = ExplicitFilterGrpcKt.ExplicitFilterCoroutineStub(channel)
 
