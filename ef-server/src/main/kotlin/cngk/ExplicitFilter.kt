@@ -1,6 +1,7 @@
 package cngk
 
 import io.grpc.ServerBuilder
+import io.grpc.health.v1.*
 
 class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
 
@@ -20,6 +21,14 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
     }
 }
 
+class HealthCheck : HealthGrpcKt.HealthCoroutineImplBase() {
+    override suspend fun check(request: HealthCheckRequest): HealthCheckResponse {
+        return healthCheckResponse {
+            status = HealthCheckResponse.ServingStatus.SERVING
+        }
+    }
+}
+
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 50051
 
@@ -28,6 +37,7 @@ fun main() {
     val server = ServerBuilder
             .forPort(port)
             .addService(ExplicitFilter())
+            .addService(HealthCheck())
             .build()
 
     server.start()
