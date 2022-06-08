@@ -12,3 +12,9 @@ dependencies {
 application {
     mainClass.set("cngk.ExplicitFilterKt")
 }
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
