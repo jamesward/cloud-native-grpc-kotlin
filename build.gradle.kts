@@ -4,8 +4,8 @@ plugins {
     id("com.google.cloud.tools.jib") version "3.1.4" apply false
 }
 
-ext["grpcVersion"] = "1.40.1"
-ext["grpcKotlinVersion"] = "1.1.0"
+ext["grpcVersion"] = "1.47.0"
+ext["grpcKotlinVersion"] = "1.3.0"
 ext["protobufVersion"] = "3.17.3"
 
 allprojects {

@@ -1,10 +1,16 @@
 # Cloud Native gRPC Kotlin
 
+## Run with just test containers
+
+The following command builds both the server and the explicit filter containers and launches them as test containers.
+
 Run Chat Client against Server Testcontainers:
 ```
 ./gradlew :chat-client:runc --console=plain --quiet
 ```
 
+
+## Run everything manually 
 
 Start the Explicit Filter server:
 ```
@@ -27,6 +33,7 @@ Create & run the Chat client native image:
 chat-client/build/graal/chat
 ```
 
+## Build and Run the containers manually
 
 Containerize & Run Locally:
 ```
@@ -37,6 +44,7 @@ docker run -it -p 50051:50051 ef-server
 docker run -it -p 50052:50052 chat-server
 ```
 
+## Cloudy version -  Run everything in GCP
 
 In GCP console
 
