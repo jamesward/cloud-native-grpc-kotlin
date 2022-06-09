@@ -17,6 +17,9 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
             else if (word.startsWith("bomb")) {
                 HealthCheck.hc_status = HealthCheckResponse.ServingStatus.NOT_SERVING
             }
+            else if (word.startsWith("exit")) {
+                System.exit(1)
+            }
             else {
                 word
             }
