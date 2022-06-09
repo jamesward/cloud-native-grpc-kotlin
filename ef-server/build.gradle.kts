@@ -13,6 +13,12 @@ application {
     mainClass.set("cngk.ExplicitFilterKt")
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
 val jibExtrasDir = layout.buildDirectory.dir("jib-extras").get()
 
 tasks.register("downloadProbe") {
