@@ -27,6 +27,9 @@ Create & run the Chat client native image:
 chat-client/build/graal/chat
 ```
 
+```
+./gradlew -t :chat-web:jsBrowserRun
+```
 
 Containerize & Run Locally:
 ```
