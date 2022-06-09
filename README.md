@@ -22,6 +22,12 @@ Start the Chat server:
 ./gradlew :chat-server:run
 ```
 
+Start the Chat web app:
+```
+./gradlew :chat-web:run
+```
+[web app](http://localhost:8080)
+
 Run the Chat client:
 ```
 ./gradlew :chat-client:run --console=plain --quiet
@@ -38,10 +44,13 @@ chat-client/build/graal/chat
 Containerize & Run Locally:
 ```
 ./gradlew :ef-server:jibDockerBuild
-docker run -it -p 50051:50051 ef-server
+docker run -it --net=host ef-server
 
 ./gradlew :chat-server:jibDockerBuild
-docker run -it -p 50052:50052 chat-server
+docker run -it --net=host chat-server
+
+./gradlew :chat-web:jibDockerBuild
+docker run -it --net=host chat-web
 ```
 
 ## Cloudy version -  Run everything in GCP
@@ -62,10 +71,12 @@ Containerize (Remote Storage):
 ```
 ./gradlew :ef-server:jib --image=gcr.io/$PROJECT_ID/ef-server
 ./gradlew :chat-server:jib --image=gcr.io/$PROJECT_ID/chat-server
+./gradlew :chat-web:jib --image=gcr.io/$PROJECT_ID/chat-web
 ```
 
 Run in GKE:
 
+TODO: chat-web
 ```
 cd kubernetes/
 kubectl create -f ef-server.yml

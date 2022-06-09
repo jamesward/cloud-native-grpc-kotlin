@@ -12,7 +12,7 @@ plugins {
 dependencies {
     protobuf(project(":protos"))
 
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
     api("io.grpc:grpc-protobuf-lite:${rootProject.ext["grpcVersion"]}")
     api("io.grpc:grpc-stub:${rootProject.ext["grpcVersion"]}")

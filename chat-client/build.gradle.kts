@@ -7,8 +7,8 @@ plugins {
 dependencies {
     implementation(project(":stub-lite"))
     runtimeOnly("io.grpc:grpc-okhttp:${rootProject.ext["grpcVersion"]}")
-    testImplementation("org.testcontainers:testcontainers:1.16.0")
-    testRuntimeOnly("org.slf4j:slf4j-simple:1.7.32")
+    testImplementation("org.testcontainers:testcontainers:1.17.1")
+    testRuntimeOnly("org.slf4j:slf4j-simple:1.7.36")
 }
 
 application {
