@@ -1,9 +1,8 @@
 package cngk
 
 import io.grpc.ServerBuilder
-import kotlin.math.pow
-import kotlin.math.roundToLong
 import io.grpc.health.v1.*
+import kotlin.system.exitProcess
 
 class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
 
@@ -15,10 +14,10 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
                 word.map { "*" }.joinToString("")
             }
             else if (word.startsWith("bomb")) {
-                HealthCheck.hc_status = HealthCheckResponse.ServingStatus.NOT_SERVING
+                HealthCheck.healthCheckStatus = HealthCheckResponse.ServingStatus.NOT_SERVING
             }
             else if (word.startsWith("exit")) {
-                System.exit(1)
+                exitProcess(1)
             }
             else {
                 word
@@ -33,12 +32,12 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
 class HealthCheck : HealthGrpcKt.HealthCoroutineImplBase() {
     override suspend fun check(request: HealthCheckRequest): HealthCheckResponse {
         return healthCheckResponse {
-            status = hc_status
+            status = healthCheckStatus
         }
     }
 
     companion object {
-        var hc_status = HealthCheckResponse.ServingStatus.SERVING
+        var healthCheckStatus = HealthCheckResponse.ServingStatus.SERVING
     }
 }
 
