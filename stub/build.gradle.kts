@@ -21,13 +21,23 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
     kotlinOptions {
         freeCompilerArgs = listOf("-opt-in=kotlin.RequiresOptIn")
     }
+}
+
+sourceSets {
+    val main by getting { }
+    main.java.srcDirs("build/generated/source/proto/main/java")
+    main.java.srcDirs("build/generated/source/proto/main/kotlin")
+    main.java.srcDirs("build/generated/source/proto/main/grpc")
+    main.java.srcDirs("build/generated/source/proto/main/grpckt")
 }
 
 protobuf {
