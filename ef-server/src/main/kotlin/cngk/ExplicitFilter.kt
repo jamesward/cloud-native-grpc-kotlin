@@ -14,12 +14,6 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
             if (badWords.find { it == word.lowercase() } != null) {
                 word.map { "*" }.joinToString("")
             }
-            else if (word.startsWith("bomb")) {
-                healthStatusManager.setStatus(HealthStatusManager.SERVICE_NAME_ALL_SERVICES, HealthCheckResponse.ServingStatus.NOT_SERVING)
-            }
-            else if (word.startsWith("exit")) {
-                exitProcess(1)
-            }
             else {
                 word
             }
@@ -36,6 +30,9 @@ fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 50051
 
     println("Server Started: localhost:$port")
+
+    // https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/HealthStatusManager.html
+    healthStatusManager.setStatus(HealthStatusManager.SERVICE_NAME_ALL_SERVICES, HealthCheckResponse.ServingStatus.SERVING)
 
     val server = ServerBuilder
             .forPort(port)
