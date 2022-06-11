@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(":stub"))
+    implementation("io.grpc:grpc-services:${rootProject.ext["grpcVersion"]}")
     runtimeOnly("io.grpc:grpc-netty:${rootProject.ext["grpcVersion"]}")
 }
 

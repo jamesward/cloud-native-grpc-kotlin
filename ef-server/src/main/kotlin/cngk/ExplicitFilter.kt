@@ -1,7 +1,8 @@
 package cngk
 
 import io.grpc.ServerBuilder
-import io.grpc.health.v1.*
+import io.grpc.health.v1.HealthCheckResponse
+import io.grpc.protobuf.services.HealthStatusManager
 import kotlin.system.exitProcess
 
 class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
@@ -14,7 +15,7 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
                 word.map { "*" }.joinToString("")
             }
             else if (word.startsWith("bomb")) {
-                HealthCheck.healthCheckStatus = HealthCheckResponse.ServingStatus.NOT_SERVING
+                healthStatusManager.setStatus(HealthStatusManager.SERVICE_NAME_ALL_SERVICES, HealthCheckResponse.ServingStatus.NOT_SERVING)
             }
             else if (word.startsWith("exit")) {
                 exitProcess(1)
@@ -29,17 +30,7 @@ class ExplicitFilter : ExplicitFilterGrpcKt.ExplicitFilterCoroutineImplBase() {
 
 }
 
-class HealthCheck : HealthGrpcKt.HealthCoroutineImplBase() {
-    override suspend fun check(request: HealthCheckRequest): HealthCheckResponse {
-        return healthCheckResponse {
-            status = healthCheckStatus
-        }
-    }
-
-    companion object {
-        var healthCheckStatus = HealthCheckResponse.ServingStatus.SERVING
-    }
-}
+val healthStatusManager = HealthStatusManager()
 
 fun main() {
     val port = System.getenv("PORT")?.toInt() ?: 50051
@@ -49,7 +40,7 @@ fun main() {
     val server = ServerBuilder
             .forPort(port)
             .addService(ExplicitFilter())
-            .addService(HealthCheck())
+            .addService(healthStatusManager.healthService)
             .build()
 
     server.start()
